@@ -69,6 +69,29 @@
   .prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:50;
     background:linear-gradient(90deg,var(--gold),var(--gold-2));box-shadow:0 0 10px rgba(217,183,121,.55)}
 
+  /* ================= 极光 / 开场 / 墨迹 ================= */
+  #aurora{position:fixed;inset:0;z-index:0;display:none;pointer-events:none}
+  body.aurora-on #aurora{display:block}
+  body.aurora-on #g1,body.aurora-on #g2{display:none}
+
+  #intro{position:fixed;inset:0;z-index:35;pointer-events:none;opacity:1;transition:opacity .7s ease}
+  #intro.gone{opacity:0}
+  body.locked{overflow:hidden}
+  body.locked .dock,body.locked .toggle{opacity:0;pointer-events:none}
+  .dock,.toggle{transition:opacity .5s ease}
+
+  #ink{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+  .inkdot{position:absolute;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,var(--glowc) 0%,rgba(217,183,121,.10) 45%,transparent 66%);
+    opacity:.5;transform:scale(.45);animation:inkOut 1.7s ease-out forwards}
+  @keyframes inkOut{0%{opacity:.5;transform:scale(.45)}100%{opacity:0;transform:scale(2.2)}}
+
+  body.pre-intro .chips,
+  body.pre-intro .hero h1 span,
+  body.pre-intro .hero .glowline,
+  body.pre-intro .hero-sub,
+  body.pre-intro .cue{animation:none!important;opacity:0!important}
+
   /* ================= 场景 ================= */
   main{position:relative;z-index:4}
   .sec{position:relative;min-height:100vh;min-height:100svh;
@@ -254,7 +277,12 @@
 </style>
 </head>
 <body>
+<script>try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.body.className='pre-intro'}}catch(e){}
+setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){document.body.className=document.body.className.replace('pre-intro','').trim();document.body.className+=' intro-done'}},4600)</script>
 
+<canvas id="aurora"></canvas>
+<canvas id="intro"></canvas>
+<div id="ink"></div>
 <div class="bg"><div class="glow" id="g1"></div><div class="glow" id="g2"></div><div class="vignette"></div></div>
 <div class="stars" id="stars"></div>
 <canvas id="fw"></canvas>
@@ -461,6 +489,137 @@ const CONFIG = {
     toastTimer = setTimeout(() => t.classList.remove('on'), ms || 2400);
   }
 
+
+  /* ---------- WebGL 极光 ---------- */
+  const Aurora = (function () {
+    const cv = document.getElementById('aurora');
+    const stub = { ok: false, setColors: function () {}, setVig: function () {}, pulse: function () {} };
+    if (!cv) return stub;
+
+    let gl = null;
+    try {
+      gl = cv.getContext('webgl', { alpha: false, antialias: false, depth: false, powerPreference: 'low-power' })
+        || cv.getContext('experimental-webgl');
+    } catch (e) { gl = null; }
+    if (!gl) return stub;
+
+    const VS = 'attribute vec2 aPos;void main(){gl_Position=vec4(aPos,0.0,1.0);}';
+    const FS = [
+      'precision mediump float;',
+      'uniform vec2 uRes; uniform float uTime; uniform vec2 uMouse;',
+      'uniform vec3 uC1; uniform vec3 uC2; uniform float uPulse; uniform float uVig;',
+      'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}',
+      'float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.0-2.0*f);',
+      '  return mix(mix(hash(i),hash(i+vec2(1.0,0.0)),u.x),mix(hash(i+vec2(0.0,1.0)),hash(i+vec2(1.0,1.0)),u.x),u.y);}',
+      'float fbm(vec2 p){float v=0.0,a=0.5;for(int i=0;i<4;i++){v+=a*noise(p);p*=2.02;a*=0.5;}return v;}',
+      'void main(){',
+      '  vec2 p=(gl_FragCoord.xy-0.5*uRes)/uRes.y;',
+      '  float t=uTime*0.055;',
+      '  vec2 q=vec2(fbm(p*1.7+t),fbm(p*1.7+vec2(4.1,2.7)-t*0.8));',
+      '  float f=fbm(p*1.25+q*1.5+vec2(0.0,t*0.6));',
+      '  vec2 mo=(uMouse-0.5*uRes)/uRes.y;',
+      '  float d=1.0-smoothstep(0.0,1.10,length(p-mo*0.38));',
+      '  vec3 col=mix(uC1,uC2,clamp(q.x*1.35,0.0,1.0));',
+      '  float band=smoothstep(0.42,0.95,f+0.16*sin(p.x*2.2+t*3.0));',
+      '  col+=band*vec3(0.10,0.12,0.15)*(1.0+uPulse*2.0);',
+      '  col+=d*vec3(0.13,0.09,0.04)*(1.0+uPulse);',
+      '  float v=0.15+0.85*(1.0-smoothstep(0.20,1.50,length(p)));',
+      '  col*=mix(uVig,1.0,v);',
+      '  gl_FragColor=vec4(col,1.0);',
+      '}'
+    ].join('\n');
+
+    function sh(type, src) {
+      const o = gl.createShader(type);
+      gl.shaderSource(o, src); gl.compileShader(o);
+      if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) { console.warn(gl.getShaderInfoLog(o)); return null; }
+      return o;
+    }
+    const v = sh(gl.VERTEX_SHADER, VS), f = sh(gl.FRAGMENT_SHADER, FS);
+    if (!v || !f) return stub;
+    const prog = gl.createProgram();
+    gl.attachShader(prog, v); gl.attachShader(prog, f); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.warn(gl.getProgramInfoLog(prog)); return stub; }
+    gl.useProgram(prog);
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'aPos');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+    const U = {
+      res: gl.getUniformLocation(prog, 'uRes'),
+      time: gl.getUniformLocation(prog, 'uTime'),
+      mouse: gl.getUniformLocation(prog, 'uMouse'),
+      c1: gl.getUniformLocation(prog, 'uC1'),
+      c2: gl.getUniformLocation(prog, 'uC2'),
+      pulse: gl.getUniformLocation(prog, 'uPulse'),
+      vig: gl.getUniformLocation(prog, 'uVig')
+    };
+
+    function hex(h) {
+      h = h.replace('#', '');
+      return [parseInt(h.substr(0,2),16)/255, parseInt(h.substr(2,2),16)/255, parseInt(h.substr(4,2),16)/255];
+    }
+
+    let cur1 = [0.16,0.08,0.19], cur2 = [0.23,0.10,0.08];
+    let tgt1 = cur1.slice(), tgt2 = cur2.slice();
+    let vig = 0.38, vigT = 0.38, pulse = 0;
+    const mouse = [innerWidth * 0.5, innerHeight * 0.5], mtgt = [innerWidth * 0.5, innerHeight * 0.5];
+    let sc = Math.min(1.5, window.devicePixelRatio || 1);
+    let raf = 0, last = 0, t0 = performance.now();
+
+    function resize() {
+      sc = Math.min(1.5, window.devicePixelRatio || 1);
+      cv.width = Math.max(1, Math.floor(innerWidth * sc));
+      cv.height = Math.max(1, Math.floor(innerHeight * sc));
+      gl.viewport(0, 0, cv.width, cv.height);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    window.addEventListener('pointermove', function (e) {
+      mtgt[0] = e.clientX * sc;
+      mtgt[1] = (innerHeight - e.clientY) * sc;
+    }, { passive: true });
+
+    function loop(now) {
+      raf = requestAnimationFrame(loop);
+      if (now - last < 33) return;
+      last = now;
+      if (document.hidden) return;
+      for (let i = 0; i < 3; i++) {
+        cur1[i] += (tgt1[i] - cur1[i]) * 0.05;
+        cur2[i] += (tgt2[i] - cur2[i]) * 0.05;
+      }
+      vig += (vigT - vig) * 0.08;
+      pulse *= 0.9;
+      mouse[0] += (mtgt[0] - mouse[0]) * 0.06;
+      mouse[1] += (mtgt[1] - mouse[1]) * 0.06;
+      gl.uniform2f(U.res, cv.width, cv.height);
+      gl.uniform1f(U.time, (now - t0) / 1000);
+      gl.uniform2f(U.mouse, mouse[0], mouse[1]);
+      gl.uniform3f(U.c1, cur1[0], cur1[1], cur1[2]);
+      gl.uniform3f(U.c2, cur2[0], cur2[1], cur2[2]);
+      gl.uniform1f(U.pulse, Math.min(1, pulse));
+      gl.uniform1f(U.vig, vig);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+    raf = requestAnimationFrame(loop);
+    document.body.classList.add('aurora-on');
+    window.addEventListener('webglcontextlost', function () {
+      document.body.classList.remove('aurora-on');
+    }, false);
+
+    return {
+      ok: true,
+      setColors: function (a, b) { tgt1 = hex(a); tgt2 = hex(b); },
+      setVig: function (v) { vigT = v; },
+      pulse: function () { pulse = 1; }
+    };
+  })();
+
   /* ---------- 补细节 ---------- */
   if (CONFIG.editMode) {
     const t = $('#toggle'); t.textContent = '补细节';
@@ -541,6 +700,7 @@ const CONFIG = {
     g1.style.backgroundColor = c[0];
     g2.style.backgroundColor = c[1];
     g1.style.transform = 'translate3d(' + (((i % 3) - 1) * 3) + 'vmax,' + (i % 2 ? 2 : -2) + 'vmax,0)';
+    Aurora.setColors(c[0], c[1]);
   }
   applyPalette(0);
 
@@ -559,6 +719,7 @@ const CONFIG = {
     $('#metaTheme').setAttribute('content', light ? '#f5eee2' : '#08090d');
     $('#btnTheme').classList.toggle('on', light);
     applyPalette(curSec);
+    Aurora.setVig(light ? 0.88 : 0.38);
     toast(light ? '日间模式' : '夜间模式', 1400);
   });
 
@@ -702,6 +863,7 @@ const CONFIG = {
       g2.gain.exponentialRampToValueAtTime(.001, t + dur * .55);
       o1.connect(g1).connect(master);
       o2.connect(g2).connect(master);
+      Aurora.pulse();
       o1.start(t); o1.stop(t + dur * 1.7 + .1);
       o2.start(t); o2.stop(t + dur * .6 + .1);
     }
@@ -847,6 +1009,141 @@ const CONFIG = {
   function openSecret() { $('#secret').classList.add('on'); if (navigator.vibrate) navigator.vibrate(14); }
   stamp.addEventListener('click', openSecret);
   stamp.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSecret(); } });
+
+
+  /* ---------- 粒子化开场 ---------- */
+  (function () {
+    const cv = document.getElementById('intro');
+    function done() {
+      document.body.classList.remove('locked', 'pre-intro');
+      document.body.classList.add('intro-done');
+      if (cv) { cv.classList.add('gone'); setTimeout(function () { cv.remove(); }, 900); }
+    }
+    if (!cv || reduce) { if (cv) cv.remove(); done(); return; }
+
+    let g;
+    try { g = cv.getContext('2d'); } catch (e) { g = null; }
+    if (!g) { cv.remove(); done(); return; }
+
+    const W = innerWidth, H = innerHeight;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.floor(W * dpr); cv.height = Math.floor(H * dpr);
+    cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    g.scale(dpr, dpr);
+
+    const off = document.createElement('canvas');
+    off.width = W; off.height = H;
+    const og = off.getContext('2d');
+    const fs = Math.min(W * 0.2, H * 0.145);
+    og.font = '700 ' + fs + 'px "Kaiti SC","STKaiti","KaiTi","Noto Serif CJK SC","Source Han Serif SC",serif';
+    og.textAlign = 'center'; og.textBaseline = 'middle'; og.fillStyle = '#fff';
+    og.fillText('生日快乐', W / 2, H * 0.42);
+
+    let data = null;
+    try { data = og.getImageData(0, 0, W, H).data; } catch (e) { data = null; }
+    if (!data) { cv.remove(); done(); return; }
+
+    const pts = [];
+    const STEP = 5;
+    for (let y = 0; y < H; y += STEP) {
+      for (let x = 0; x < W; x += STEP) {
+        if (data[(y * W + x) * 4 + 3] > 140) pts.push([x, y]);
+      }
+    }
+    if (!pts.length) { cv.remove(); done(); return; }
+
+    const MAX = 1500;
+    let list = pts;
+    if (pts.length > MAX) {
+      list = [];
+      const k = pts.length / MAX;
+      for (let i = 0; i < MAX; i++) list.push(pts[Math.floor(i * k)]);
+    }
+
+    const cx = W / 2, cy = H * 0.42, RR = Math.max(W, H) * 0.62;
+    const ps = list.map(function (pt) {
+      const a = Math.random() * Math.PI * 2;
+      const r = RR * (0.55 + Math.random() * 0.55);
+      return {
+        tx: pt[0], ty: pt[1],
+        x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r,
+        d: Math.random() * 300, vx: 0, vy: 0, cur: null
+      };
+    });
+
+    const T0 = performance.now(), HOLD = 1750, END = 3050;
+    let raf = 0, stopped = false;
+
+    function stop() {
+      if (stopped) return;
+      stopped = true;
+      cancelAnimationFrame(raf);
+      done();
+    }
+
+    function tick(now) {
+      if (stopped) return;
+      const t = now - T0;
+      g.clearRect(0, 0, W, H);
+      g.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < ps.length; i++) {
+        const p = ps[i], lt = t - p.d;
+        if (lt < 0) continue;
+        let fade = 1;
+        if (lt < 1000) {
+          const e = 1 - Math.pow(1 - lt / 1000, 3);
+          p.cur = [p.x + (p.tx - p.x) * e, p.y + (p.ty - p.y) * e];
+        } else if (lt < HOLD) {
+          p.cur = [p.tx, p.ty + Math.sin((lt - 1000) / 260 + i) * 0.8];
+        } else {
+          if (!p.vx) {
+            const a = Math.atan2(p.ty - cy, p.tx - cx) + (Math.random() - 0.5) * 0.9;
+            const sp = 1.1 + Math.random() * 3.2;
+            p.vx = Math.cos(a) * sp; p.vy = Math.sin(a) * sp - 1.2;
+          }
+          p.tx += p.vx; p.ty += p.vy; p.vy += 0.034; p.vx *= 0.995;
+          p.cur = [p.tx, p.ty];
+          fade = Math.max(0, 1 - (lt - HOLD) / 1100);
+        }
+        if (fade <= 0) continue;
+        g.globalAlpha = fade * (0.5 + Math.random() * 0.5);
+        g.fillStyle = (i % 6 === 0) ? '#fff8e8' : '#e6c489';
+        g.fillRect(p.cur[0], p.cur[1], 2, 2);
+      }
+      g.globalAlpha = 1;
+      g.globalCompositeOperation = 'source-over';
+      if (t > END) { stop(); return; }
+      raf = requestAnimationFrame(tick);
+    }
+
+    window.addEventListener('pointerdown', stop, { once: true });
+    document.body.classList.add('locked');
+    raf = requestAnimationFrame(tick);
+    setTimeout(function () { if (!stopped) stop(); }, 4600);
+  })();
+
+  /* ---------- 划过留墨 ---------- */
+  (function () {
+    const layer = document.getElementById('ink');
+    if (!layer || reduce) return;
+    let last = 0, lx = -9999, ly = -9999;
+    window.addEventListener('pointermove', function (e) {
+      const now = performance.now();
+      if (now - last < 34) return;
+      const dx = e.clientX - lx, dy = e.clientY - ly;
+      if (dx * dx + dy * dy < 150) return;
+      last = now; lx = e.clientX; ly = e.clientY;
+      const s = document.createElement('i');
+      s.className = 'inkdot';
+      const size = 44 + Math.random() * 26;
+      s.style.cssText = 'left:' + (e.clientX - size / 2) + 'px;top:' + (e.clientY - size / 2) +
+        'px;width:' + size + 'px;height:' + size + 'px';
+      layer.appendChild(s);
+      const rm = function () { if (s.parentNode) s.parentNode.removeChild(s); };
+      s.addEventListener('animationend', rm, { once: true });
+      setTimeout(rm, 2200);
+    }, { passive: true });
+  })();
 
   /* ---------- 首次提示 ---------- */
   setTimeout(() => {
