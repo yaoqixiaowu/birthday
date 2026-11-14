@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#070417" id="metaTheme">
-<title>生日快乐</title>
+<title>生日快乐，黄雪梅</title>
 <style>
   :root{
     --ink:#efe6d6; --ink-2:#a99d8b; --ink-3:#6f665a;
@@ -148,6 +148,8 @@
     font-size:clamp(150px,54vw,280px);line-height:.9;color:var(--gold);opacity:.09;will-change:transform}
   body.light .ghost{opacity:.13}
 
+  .badge{display:inline-block;margin-left:8px;padding:2px 7px;border:1px solid var(--line);
+    border-radius:999px;font-size:9.5px;letter-spacing:.14em;color:var(--ink-3);vertical-align:2px}
   .label{display:flex;align-items:center;gap:10px;
     font-size:11px;letter-spacing:.4em;color:var(--gold);margin:0 0 18px;opacity:.95}
   .label i{display:block;width:22px;height:1px;background:var(--gold);opacity:.7}
@@ -368,110 +370,264 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
 
 <div id="book">
 
-  <!-- 0 开场 -->
   <section class="sec hero" data-sec="0" data-title="开场">
     <p class="chips">二 〇 二 六 · 冬</p>
     <h1><span style="--i:0">生</span><span style="--i:1">日</span><span style="--i:2">快</span><span style="--i:3">乐</span></h1>
     <div class="glowline"></div>
-    <p class="hero-sub">一 封 写 给 <span class="slot" data-slot="to">【TA 的昵称】</span> 的 信</p>
+    <p class="hero-sub">一封写给你的信</p>
     <div class="cue">向右滑动<i></i></div>
   </section>
 
-  <!-- 1 第 N 天 -->
   <section class="sec" data-sec="1" data-title="序 · 第几天">
-    <svg class="ring spin" viewBox="0 0 200 200" aria-hidden="true">
-      <circle cx="100" cy="100" r="92"></circle><circle cx="100" cy="100" r="74"></circle>
-    </svg>
+    <svg class="ring spin" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="92"></circle><circle cx="100" cy="100" r="74"></circle></svg>
     <div class="stage" style="text-align:center">
       <p class="lead rv">我 们 已 经 认 识</p>
       <div class="countwrap rv"><span class="count" id="days">0</span><span class="unit">天</span></div>
-      <p class="days-note" id="daysNote"></p>
+      <p class="days-note rv" style="text-align:center">从二〇二〇年九月一日，到今天</p>
       <div class="orn rv" style="justify-content:center"><i></i><span>❦</span><i></i></div>
-      <p class="rv" style="text-align:center;margin-top:22px;font-size:15px;color:var(--ink-2)">数字是冷的，可一想起来，全是热的。</p>
+      <p class="rv" style="text-align:center;margin-top:22px">时间过得真快。一晃已经六年了。</p>
+      <p class="rv" style="text-align:center">可我还是觉得，不太真实。</p>
     </div>
   </section>
 
-  <!-- 2 数字面板 -->
   <section class="sec" data-sec="2" data-title="用数字说一遍">
     <div class="stage">
       <div class="rv"><div class="label"><i></i>用 数 字 说 一 遍</div></div>
       <div class="stats rv">
-        <div class="stat"><b data-num="96">0</b><span>顿 饭</span><em>我们一起吃过</em></div>
-        <div class="stat"><b data-num="740">0</b><span>小 时</span><em>大概聊了</em></div>
-        <div class="stat"><b data-num="12">0</b><span>个 地 方</span><em>一起走过</em></div>
-        <div class="stat"><b data-num="3">0</b><span>次 吵 架</span><em>但都和好了</em></div>
+        <div class="stat"><b data-num="2265">0</b><span>天</span><em>我们认识</em></div>
+        <div class="stat"><b data-num="6">0</b><span>年</span><em>一路走到现在</em></div>
+        <div class="stat"><b data-num="1">0</b><span>次</span><em>第一次表白</em></div>
+        <div class="stat"><b>∞</b><span>次</span><em>吵过的架</em></div>
       </div>
-      <p class="days-note rv" style="text-align:center;margin-top:14px">（示例数字 · 你告诉我真实的我换掉）</p>
+      <p class="rv" style="text-align:center;margin-top:20px;font-size:12.5px;color:var(--ink-3)">前三个是真的，最后一个也没在开玩笑。</p>
     </div>
   </section>
 
-  <!-- 3 壹 -->
-  <section class="sec" data-sec="3" data-title="壹 · 第一次见面">
-    <div class="ghost" data-p="0.35" style="right:-6vw;top:6vh">Ⅰ</div>
+  <section class="sec" data-sec="3" data-title="壹 · 二〇二〇年九月一日">
+    <div class="ghost" style="right:-6vw;top:6vh">Ⅰ</div>
     <div class="stage">
-      <div class="rv"><div class="label"><i></i>壹 · 第 一 次 见 面</div></div>
-      <div class="rv"><h2>那时候我还不知道，<br>这个人后来会变得很重要。</h2></div>
+      <div class="rv"><div class="label"><i></i>二〇二〇年九月一日</div></div>
+      <div class="rv"><h2>前排那个女生，<br>后来占掉了我六年。</h2></div>
       <div class="rv"><div class="hair"></div></div>
-      <div class="rv"><p>第一次见你，是在 <span class="slot" data-slot="m1">【场景：例·学校后门那家便利店，你手里拎着两杯饮料】</span>。</p></div>
-      <div class="photowrap" data-p="-0.1">
+      <div class="rv"><p>二〇二〇年九月一号，我回到兴文读书，被分到了你们班。</p></div>
+      <div class="photowrap">
         <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
+        <div class="rv"><p class="cap">初中·那年</p></div>
       </div>
-      <div class="rv"><p>那天我没觉得会有什么后来。真的，一点都没觉得。</p></div>
-      <div class="rv"><p>人跟人的缘分大概就是这样——它来的时候不出声，等你回头看，才发现那天是分界线。</p></div>
+      <div class="rv"><p>那算我们第一次见面。不过说实话，那时候我们没什么交集——你在同一个组，坐我前排，仅此而已。</p></div>
+      <div class="rv"><p>我那时候当然想不到，前排这个女生后来会占掉我六年。</p></div>
     </div>
   </section>
 
-  <!-- 4 贰 -->
-  <section class="sec" data-sec="4" data-title="贰 · 你不一样的那一天">
-    <div class="ghost" data-p="-0.32" style="left:-8vw;bottom:4vh">Ⅱ</div>
+  <section class="sec" data-sec="4" data-title="贰 · 半期考试之后">
+    <div class="ghost" style="left:-8vw;bottom:4vh">Ⅱ</div>
     <div class="stage">
-      <div class="rv"><div class="label"><i></i>贰 · 你 不 一 样 的 那 一 天</div></div>
-      <div class="rv"><h2>你大概早忘了，<br>但我一直记着。</h2></div>
+      <div class="rv"><div class="label"><i></i>半期考试之后</div></div>
+      <div class="rv"><h2>我们的故事，<br>是从一道数学题开始的。</h2></div>
       <div class="rv"><div class="hair"></div></div>
-      <div class="rv"><p>真正开始觉得你不一样，是 <span class="slot" data-slot="m2">【一件小事：例·那天我状态很差，你什么都没问，只是陪我坐了一会儿】</span>。</p></div>
-      <div class="rv"><p>不是多大的事。可在我最不想解释自己的时候，你没有让我解释。</p></div>
-      <div class="photowrap" data-p="0.12">
-        <div class="rv"><div class="photo"><div class="ph" data-photo="2">照 片 · 待 放</div></div></div>
+      <div class="rv"><p>真正的开始，是半期考试之后。那次数学我考得很轻松，还顺手拿了个第一。</p></div>
+      <div class="rv"><p>（会不会有点装？可不就是因为这个，我们之间才有了交集。毕竟我可不会主动去找别的女生。）</p></div>
+      <div class="rv"><p>从那以后，你经常来找我问数学题。这方面我向来来者不拒——只要愿意问，我就一定讲。</p></div>
+      <div class="rv"><p>现在回头看，我们的故事是从一道数学题开始的。</p></div>
+    </div>
+  </section>
+
+  <section class="sec" data-sec="5" data-title="叁 · 吵架和纸条">
+    <div class="ghost" style="right:-6vw;top:6vh">Ⅲ</div>
+    <div class="stage">
+      <div class="rv"><div class="label"><i></i>吵架和纸条</div></div>
+      <div class="rv"><h2>你吵架的样子，<br>在我眼里跟撒娇没区别。</h2></div>
+      <div class="rv"><div class="hair"></div></div>
+      <div class="rv"><p>讲题讲久了，架也就吵起来了。以我们俩当时的性格，吵架是不可避免的。</p></div>
+      <div class="photowrap">
+        <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
+        <div class="rv"><p class="cap">初中·那年</p></div>
       </div>
-      <div class="rv"><p>后来我才明白，这种不追问的体贴，比任何安慰都难得。</p></div>
+      <div class="rv"><p>但在我眼里，你吵架跟撒娇没什么区别。</p></div>
+      <div class="rv"><p>那段时间你总来找我问题，我也乐此不疲。有些谣言开始传。</p></div>
+      <div class="rv"><p>我记不清当时具体什么感受了——因为在我自己看来，我们那时的交流确实挺暧昧的。</p></div>
+      <div class="rv"><p>晚上我们还会偷偷写纸条聊天。现在想起来真是惬意。就是不明白，时间为什么过得这么快。</p></div>
     </div>
   </section>
 
-  <!-- 5 叁 -->
-  <section class="sec" data-sec="5" data-title="叁 · 熟了以后">
-    <div class="ghost" data-p="0.3" style="right:-7vw;bottom:6vh">Ⅲ</div>
+  <section class="sec" data-sec="6" data-title="肆 · 第一次表白">
+    <div class="ghost" style="left:-8vw;bottom:4vh">Ⅳ</div>
     <div class="stage">
-      <div class="rv"><div class="label"><i></i>叁 · 熟 了 以 后</div></div>
-      <div class="rv"><h2>熟到不用解释半句，<br>你就知道我今天好不好。</h2></div>
+      <div class="rv"><div class="label"><i></i>第一次表白</div></div>
+      <div class="rv"><h2>别的我可能都忘了，<br>这件事我能记一辈子。</h2></div>
       <div class="rv"><div class="hair"></div></div>
-      <div class="rv"><p>后来我们就熟了。熟到我能在你面前说很没道理的话，你也照单全收；熟到沉默也不尴尬，各刷各的手机也能待一下午。</p></div>
-      <div class="rv"><p>你常说的那句 <span class="slot" data-slot="m3">【TA 的口头禅，例·“没事，有我呢”】</span>，我听了其实会安心。</p></div>
-      <div class="photowrap" data-p="-0.14">
-        <div class="rv"><div class="photo"><div class="ph" data-photo="3">照 片 · 待 放</div></div></div>
+      <div class="rv"><p>第一次表白，是在晚自习。</p></div>
+      <div class="rv"><p>这件事你可能已经听出老茧了，但没办法——那可是我第一次啊。</p></div>
+      <div class="rv"><p>其他的也许都会慢慢模糊，这个会一直记得。</p></div>
+    </div>
+  </section>
+
+  <section class="sec" data-sec="7" data-title="伍 · 那次“破裂”和那个暑假">
+    <div class="ghost" style="right:-6vw;top:6vh">Ⅴ</div>
+    <div class="stage">
+      <div class="rv"><div class="label"><i></i>那次“破裂”</div></div>
+      <div class="rv"><h2>我一直没想明白，<br>我是怎么骗到你家地址的。</h2></div>
+      <div class="rv"><div class="hair"></div></div>
+      <div class="rv"><p>之后是我们第一次关系“破裂”。</p></div>
+      <div class="photowrap">
+        <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
+        <div class="rv"><p class="cap">初中·那年</p></div>
       </div>
+      <div class="rv"><p>神奇的是，我竟然在那个暑假去你家玩了。到现在我也没搞清楚，我到底是怎么骗到你家庭住址的。</p></div>
+      <div class="rv"><p>初中三年其实已经记不太清了。那时候你就是只学习的，我们的交流完全局限在学习。</p></div>
+      <div class="rv"><p>虽然高中感觉也差不多——但我们还是学生嘛，不聊学习聊什么，聊梦想、聊三观吗。</p></div>
     </div>
   </section>
 
-  <!-- 6 肆 -->
-  <section class="sec" data-sec="6" data-title="肆 · 一起熬过的日子">
-    <div class="ghost" data-p="-0.34" style="left:-9vw;top:8vh">Ⅳ</div>
+  <section class="sec" data-sec="8" data-title="陆 · 高中三年">
+    <div class="ghost" style="left:-8vw;bottom:4vh">Ⅵ</div>
     <div class="stage">
-      <div class="rv"><div class="label"><i></i>肆 · 一 起 熬 过 的 日 子</div></div>
-      <div class="rv"><h2>难的日子，<br>因为有你在，好像也没那么难。</h2></div>
+      <div class="rv"><div class="label"><i></i>高中三年<span class="badge">可选看 · 留白</span></div></div>
+      <div class="rv"><h2>这一章，先空着。</h2></div>
       <div class="rv"><div class="hair"></div></div>
-      <div class="rv"><p>这一路上，我们也各自有各自乱七八糟的时候。<span class="slot" data-slot="m4">【一起熬过的一件事：例·备考那段时间，我们在自习室熬到天亮】</span>。</p></div>
-      <div class="rv"><p>那时候谁都没说什么漂亮话。就是坐着，耗着，等天亮。</p></div>
-      <div class="rv"><p>现在回头看，那些日子反而是我最舍不得的部分。</p></div>
+      <div class="rv"><p>高中那三年，我们的关系变得挺戏剧的。你说你都听过了。</p></div>
+      <div class="rv"><p>本来想单独写一章，写到这里我发现——这些事你都听过，而且我们还有很久可以慢慢讲。</p></div>
+      <div class="rv"><p>所以这一章先空着。等你哪天想听，我再讲一遍。</p></div>
     </div>
   </section>
 
-  <!-- 7 转场 -->
-  <section class="sec" data-sec="7" data-title="今天"),>
-    <div class="stage"><p class="mega" id="mega">今天，<br>我不想只说四个字。</p></div>
+  <section class="sec" data-sec="9" data-title="柒 · 毕业那天">
+    <div class="ghost" style="right:-6vw;top:6vh">Ⅶ</div>
+    <div class="stage">
+      <div class="rv"><div class="label"><i></i>毕业那天</div></div>
+      <div class="rv"><h2>那天我在路上，<br>是真的说不出来。</h2></div>
+      <div class="rv"><div class="hair"></div></div>
+      <div class="rv"><p>高中毕业那天，我记得我们在路上走了半天。</p></div>
+      <div class="photowrap">
+        <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
+        <div class="rv"><p class="cap">初中·那年</p></div>
+      </div>
+      <div class="rv"><p>你能在那儿叭叭叭地说个不停，我是真的说不出来。</p></div>
+      <div class="rv"><p>其实挺不现实的。那会儿我是有点迟疑的：一是我确实说不出口，二是我觉得你不会想异地。</p></div>
+      <div class="rv"><p>那时候我几乎笃定自己考不上中山，甚至觉得混过去也是个不错的选择——毕竟你会很累。</p></div>
+      <div class="rv"><p>所以那天，我确实很难开口。</p></div>
+      <div class="rv"><p>（有意思的是，老师就在路上看到了我们，还让我们快点回去。等寒假回去，我一定找老师聊聊这个。）</p></div>
+    </div>
   </section>
 
-  <!-- 8 蜡烛 -->
-  <section class="sec" data-sec="8" data-title="许个愿" id="candleSec">
+  <section class="sec" data-sec="10" data-title="捌 · 那天晚上">
+    <div class="ghost" style="left:-8vw;bottom:4vh">Ⅷ</div>
+    <div class="stage">
+      <div class="rv"><div class="label"><i></i>那天晚上</div></div>
+      <div class="rv"><h2>原来整个宿舍，<br>都知道我在跟谁聊天。</h2></div>
+      <div class="rv"><div class="hair"></div></div>
+      <div class="rv"><p>那天晚上，我用语音和你聊了很久。</p></div>
+      <div class="rv"><p>为了不让室友听到，我躲在门外一个小空间里。班主任看到我，问我在干嘛、考得怎么样。我说我在和对象聊天，感觉考得将就。</p></div>
+      <div class="rv"><p>聊完回去，舍友又问我干嘛去了。ss 最机灵，反手就说我肯定是在和你聊天。</p></div>
+      <div class="rv"><p>他说对了。但我没理他，直接无视。</p></div>
+      <div class="rv"><p>那天我失眠了好久。</p></div>
+    </div>
+  </section>
+
+  <section class="sec" data-sec="11" data-title="玖 · 那个假期">
+    <div class="ghost" style="right:-6vw;top:6vh">Ⅸ</div>
+    <div class="stage">
+      <div class="rv"><div class="label"><i></i>那个假期</div></div>
+      <div class="rv"><h2>我爸很无所谓，<br>我孃孃替我不平。</h2></div>
+      <div class="rv"><div class="hair"></div></div>
+      <div class="rv"><p>后来到了假期。说实话，这段我不太想回忆——只是重复地闹矛盾。</p></div>
+      <div class="photowrap">
+        <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
+        <div class="rv"><p class="cap">初中·那年</p></div>
+      </div>
+      <div class="rv"><p>我到现在也不太理解，我为什么就被完全“pass”了。但我尊重你家人的建议。</p></div>
+      <div class="rv"><p>那天是中午，午饭前你跟我说了这件事。我听完就出去吃饭了，在桌上和我爸他们聊到。</p></div>
+      <div class="rv"><p>我爸很无所谓，什么都没说。我孃孃似乎有些为我不平，周末带我去了电影院——电影其实不怎么样。</p></div>
+      <div class="rv"><p>那会儿是晚上，电影开始前我还在和你发消息，但还是原来那个样子。</p></div>
+      <div class="rv"><p>你也不想这样。我还记得你当时好纠结的样子，其实挺可爱的，只是偏可怜的那一种。</p></div>
+      <div class="rv"><p>算了，这里不想细说。</p></div>
+    </div>
+  </section>
+
+  <section class="sec" data-sec="12" data-title="拾 · 那封信">
+    <div class="ghost" style="left:-8vw;bottom:4vh">Ⅹ</div>
+    <div class="stage">
+      <div class="rv"><div class="label"><i></i>那封信</div></div>
+      <div class="rv"><h2>再来一次，<br>我还是会这样选。</h2></div>
+      <div class="rv"><div class="hair"></div></div>
+      <div class="rv"><p>之后我准备回家，这算我们之间的一个转折点：你第一次提出分手，还直接写了一封信。</p></div>
+      <div class="rv"><p>（那封信我也放在仓库里了。）</p></div>
+      <div class="rv"><p>那天晚上我和我爸在车上谈这件事，我其实并不完全知道自己真正的想法。我是有动摇的，也谈不上深思熟虑，只是凭我觉得对的去选。</p></div>
+      <div class="rv"><p>但我不后悔。再来一次，只要是我，我还是会这样选。</p></div>
+      <div class="rv"><p>（嘿嘿，你当时一定在偷偷哭吧。这次我可没哭——毕竟我爸还在旁边呢。）</p></div>
+    </div>
+  </section>
+
+  <section class="sec" data-sec="13" data-title="拾壹 · 国庆">
+    <div class="ghost" style="right:-6vw;top:6vh">Ⅺ</div>
+    <div class="stage">
+      <div class="rv"><div class="label"><i></i>国庆去南京<span class="badge">可选看</span></div></div>
+      <div class="rv"><h2>第一次自己坐地铁，<br>竟然是去找对象。</h2></div>
+      <div class="rv"><div class="hair"></div></div>
+      <div class="rv"><p>一直到大一的国庆，我去找你。</p></div>
+      <div class="photowrap">
+        <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
+        <div class="rv"><p class="cap">初中·那年</p></div>
+      </div>
+      <div class="rv"><p>这是我第一次自己出远门。第一次自己坐地铁出门，竟然是去找对象——吴享平，过去的你能想到这一步吗。</p></div>
+      <div class="rv"><p>到了之后还收到了花。这你又能想到吗。大概是不会的。</p></div>
+      <div class="rv"><p>那几天确实玩得很开心。走的时候，你竟然还抱了我一下。</p></div>
+      <div class="rv"><p>我喜欢你啊，黄雪梅。</p></div>
+      <div class="rv"><p>（可惜那会儿还不让牵手。）</p></div>
+    </div>
+  </section>
+
+  <section class="sec" data-sec="14" data-title="拾贰 · 平淡的日子">
+    <div class="ghost" style="left:-8vw;bottom:4vh">Ⅻ</div>
+    <div class="stage">
+      <div class="rv"><div class="label"><i></i>平淡的日子</div></div>
+      <div class="rv"><h2>各忙各的，<br>我其实觉得这样挺好的。</h2></div>
+      <div class="rv"><div class="hair"></div></div>
+      <div class="rv"><p>国庆回来之后，我们的交往开始趋于平淡。</p></div>
+      <div class="rv"><p>每天各忙各的，时不时打个电话、开个视频。我其实觉得这样挺好的。</p></div>
+      <div class="rv"><p>当然也免不了有时候会吵架。这个暂且不提——毕竟在这个日子里，有点不合时宜，对吧。</p></div>
+    </div>
+  </section>
+
+  <section class="sec" data-sec="15" data-title="拾叁 · 这次生日">
+    <div class="ghost" style="right:-6vw;top:6vh">ⅩⅢ</div>
+    <div class="stage">
+      <div class="rv"><div class="label"><i></i>这次生日</div></div>
+      <div class="rv"><h2>有个丰富多彩的人<br>闯进了我的生活。</h2></div>
+      <div class="rv"><div class="hair"></div></div>
+      <div class="rv"><p>快进到现在。</p></div>
+      <div class="photowrap">
+        <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
+        <div class="rv"><p class="cap">初中·那年</p></div>
+      </div>
+      <div class="rv"><p>我对生日其实没什么感觉。我自己过生日的时候，只想好好玩会儿游戏。</p></div>
+      <div class="rv"><p>但有个丰富多彩的人闯进了我的生活，我好像就不能再把一些日子当作可有可无了。</p></div>
+      <div class="rv"><p>所以我开始想：怎么样才能惊艳到你。</p></div>
+      <div class="rv"><p>嗯哼，这就是你面前这个东西的来历。后来听说你想要蛋糕，其实和我想给的一样，但还是有区别——为了足够的惊喜感，我可是少见地说了“完全不可以”。</p></div>
+      <div class="rv"><p>然后……就搞炸了。</p></div>
+    </div>
+  </section>
+
+  <section class="sec" data-sec="16" data-title="拾肆 · 搞炸了">
+    <div class="ghost" style="left:-8vw;bottom:4vh">ⅩⅣ</div>
+    <div class="stage">
+      <div class="rv"><div class="label"><i></i>搞炸了</div></div>
+      <div class="rv"><h2>我光顾着想这封信，<br>错过了那四个字。</h2></div>
+      <div class="rv"><div class="hair"></div></div>
+      <div class="rv"><p>是的。本来觉得完美无缺的礼物，因为我没有第一时间说“生日快乐”，搞炸了。</p></div>
+      <div class="rv"><p>我怎么就这么蠢呢——就不能先祝福，再慢慢写信吗。</p></div>
+      <div class="rv"><p>事实是，我光顾着想要写什么，写着写着就陷进回忆里，我也没招，只能说还有别的事。</p></div>
+      <div class="rv"><p>呜呜，但我真的没忘记你生日啊。</p></div>
+      <div class="rv"><p>我就这样被挂上了“不重视”的罪名，还有和以前一样的“失约”。</p></div>
+      <div class="rv"><p>后面就是一顿被说，和无能的道歉。已经没用了。之后是被拉黑——所有联系方式。</p></div>
+      <div class="rv"><p>那会儿我还觉得问题能解决：等第二天你把我拉回来，我把这个发给你就好了。可是你没有——差点又进入转折点。你还把我小号也拉黑了。</p></div>
+      <div class="rv"><p>那会儿我真以为你打算分手了，电话也打不通，唯一的办法是让别人转接。算了，不说了。</p></div>
+      <div class="rv"><p>总之，你把我拉回来了。挺好的，没进入转折点。</p></div>
+      <div class="rv"><p>（顺便说一句，就算重来一次，我还是会做一样的选择。）</p></div>
+    </div>
+  </section>
+
+  <section class="sec" data-sec="17" data-title="许个愿" id="candleSec">
     <div class="stage" style="text-align:center">
       <div class="rv"><div class="label" style="justify-content:center"><i></i>许 个 愿<i></i></div></div>
       <div class="rv"><h2 style="text-align:center;margin-bottom:6px">我把蜡烛点上了。</h2></div>
@@ -490,25 +646,26 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
       </div></div>
       <p class="blow-hint rv">轻 触 蜡 烛 · 吹 灭 它</p>
       <div class="final">
-        <p style="text-align:center;font-size:19px;letter-spacing:.1em;color:var(--h);margin:0 0 14px">
-          生日快乐，<span class="slot" data-slot="to">【TA 的昵称】</span>。</p>
-        <p style="text-align:center;font-size:15px;color:var(--ink-2);line-height:2.1;margin:0">
-          愿你今年所求皆有回应，所行皆无遗憾；<br>愿你不必太懂事，就有人心疼。</p>
+        <p style="text-align:center;font-size:19px;letter-spacing:.1em;color:var(--h);margin:0 0 14px">生日快乐，黄雪梅。</p>
+        <p style="text-align:center;font-size:15px;color:var(--ink-2);line-height:2.1;margin:0">愿你今年所求皆有回应，所行皆无遗憾；<br>愿你不必太懂事，就有人心疼。</p>
       </div>
     </div>
   </section>
 
-  <!-- 9 落款 -->
-  <section class="sec" data-sec="9" data-title="落款" id="endSec">
+  <section class="sec" data-sec="18" data-title="尾声" id="endSec">
     <div class="stage">
-      <div class="rv"><p class="quote">愿我们还有很多个<br>可以一起过的生日。</p></div>
+      <div class="rv"><div class="label"><i></i>尾 声</div></div>
+      <div class="rv"><h2>一封会一直在的信。</h2></div>
+      <div class="rv"><div class="hair"></div></div>
+      <div class="rv"><p>这就是我为你准备的一份超级长的生日回忆录。</p></div>
+      <div class="rv"><p>虽然有点坎坷——其实是特别坎坷——但总归是送出去了，对吧。</p></div>
+      <div class="rv"><p>而且它会一直在。信封可能会搞丢，但放到 GitHub 上，它就可以一直都在。</p></div>
+      <div class="rv"><p>（我打算后面建一个完整的回忆录仓库。嘿嘿，晚点我教你怎么弄一个 GitHub 账号。）</p></div>
+      <div class="rv"><p>那么，在生日的最后时刻，送上我的祝福——</p></div>
+      <div class="rv"><p style="text-align:center;font-size:21px;letter-spacing:.08em;color:var(--h);margin:24px 0">黄雪梅，<br>生 日 快 乐 ！！！</p></div>
       <div class="rv"><div class="orn" style="justify-content:center"><i></i><span>❦</span><i></i></div></div>
       <div class="rv">
-        <div class="sign">
-          永远站你这边的人<br>
-          <span class="slot" data-slot="from">【你的名字】</span>
-          <small>2026 · 11 · 14</small>
-        </div>
+        <div class="sign">你不靠谱的对象<br><span style="font-size:19px">吴享平</span><small>2026 · 11 · 14</small></div>
       </div>
       <div class="rv"><div class="stamp" id="stamp" role="button" tabindex="0" aria-label="印章"><span>生日</span><span>快乐</span></div></div>
       <p class="secret" id="secret">其实我最想说的是——谢谢你还在。</p>
@@ -549,12 +706,12 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
 <script>
 /* ================== 只改这里 ================== */
 const CONFIG = {
-  toName:    null,          // 例："小满"
-  fromName:  null,          // 例："阿舟"
-  metDate:   null,          // 例："2023-09-01"
+  toName:    "黄雪梅",
+  fromName:  "吴享平",
+  metDate:   "2020-09-01",
   letterDate:"2026-11-14",
-  demoDays:  520,           // 没填日期时的演示天数
-  editMode:  false           // 正式送人时改 false
+  demoDays:  520,
+  editMode:  false
 };
 /* ============================================== */
 
@@ -572,7 +729,7 @@ const CONFIG = {
   const realDays = hasDate
     ? Math.max(0, Math.round((new Date(CONFIG.letterDate + 'T00:00:00') - new Date(CONFIG.metDate + 'T00:00:00')) / 86400000))
     : CONFIG.demoDays;
-  $('#daysNote').textContent = hasDate ? '' : '（示例天数 · 填上认识的日子会自动计算）';
+  if (!hasDate) $('#daysNote').textContent = '（示例天数 · 填上认识的日子会自动计算）';
 
   /* ---------- 提示 ---------- */
   let toastTimer = 0;
@@ -809,7 +966,7 @@ const CONFIG = {
     es.forEach(e => {
       if (e.isIntersecting && !countedStats) {
         countedStats = true;
-        $$('.stat b').forEach((b, i) => setTimeout(() => countTo(b, +b.dataset.num, 1200), i * 120));
+        $$('.stat b').forEach((b, i) => { if (b.dataset.num) setTimeout(() => countTo(b, +b.dataset.num, 1200), i * 120); });
       }
     });
   }, { threshold: 0.4 }).observe(statsEl);
@@ -826,7 +983,7 @@ const CONFIG = {
 
   function applyPalette(i) {
     const P = light ? PAL_LIGHT : PAL_DARK;
-    const c = P[i] || P[0];
+    const c = P[i % P.length] || P[0];
     g1.style.backgroundColor = c[0];
     g2.style.backgroundColor = c[1];
     g1.style.transform = 'translate3d(' + (((i % 3) - 1) * 3) + 'vmax,' + (i % 2 ? 2 : -2) + 'vmax,0)';
