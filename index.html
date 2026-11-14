@@ -1323,12 +1323,11 @@ const CONFIG = {
     const DOTS = ['#ffffff', '#ffe9a8', '#b9c6ff', '#ffc7e6', '#a8f0ff'];
     const rnd = (a, b) => a + Math.random() * (b - a);
 
-    const spr = [], band = [], cher = [], stars = [];
+    const spr = [], band = [], stars = [];
     for (let i = 0; i < 16; i++) spr.push({ a: rnd(0, 6.283), y: rnd(y1 + 12, plateY - 10), R: R1, c: DOTS[i % 5] });
     for (let i = 0; i < 10; i++) spr.push({ a: rnd(0, 6.283), y: rnd(y2 + 10, y1 - 10), R: R2, c: DOTS[(i + 2) % 5] });
     for (let i = 0; i < 22; i++) band.push({ a: i / 22 * 6.283, y: y1, R: R1, r: 7.4 });
     for (let i = 0; i < 16; i++) band.push({ a: i / 16 * 6.283, y: y2, R: R2, r: 6.2 });
-    for (let i = 0; i < 7; i++) cher.push({ a: i / 7 * 6.283, R: R2 * 0.6 });
     for (let i = 0; i < 10; i++) stars.push({ x: rnd(20, W - 20), y: rnd(30, H - 40), r: rnd(.7, 1.8), p: rnd(0, 6.283) });
 
     let rot = 0, lastT = 0, visible = true, blownAt = 0;
@@ -1495,13 +1494,6 @@ const CONFIG = {
       sprinkleDots(R2);
       topFace(y2, R2);
 
-      for (let i = 0; i < cher.length; i++) {
-        const p = proj(cher[i].a + rot, cher[i].R, y2);
-        if (p[2] <= 0.05) continue;
-        g.beginPath(); g.arc(p[0], p[1], 4.4, 0, 6.283);
-        g.fillStyle = '#ff5f8a'; g.shadowColor = '#ff7aa0'; g.shadowBlur = 10;
-        g.fill(); g.shadowBlur = 0;
-      }
 
       g.beginPath();
       if (g.roundRect) g.roundRect(cx - 4, candleTop, 8, y2 - candleTop, 3);
