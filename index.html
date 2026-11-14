@@ -123,13 +123,13 @@
     overflow-y:auto;overflow-x:hidden;
     display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
     padding:84px 22px 96px}
-  .stage{position:relative;z-index:2;width:min(100%,382px);margin:auto 0;will-change:transform}
+  .stage{position:relative;z-index:2;width:calc(100vw - 54px);max-width:392px;margin:auto 0;will-change:transform}
   .sec::-webkit-scrollbar{display:none;width:0;height:0}
   .sec{scrollbar-width:none}
   .hero{justify-content:center}
 
   .sec{overscroll-behavior-y:contain}
-  .edge{position:fixed;left:0;right:0;bottom:0;height:118px;z-index:3;pointer-events:none;
+  .edge{position:fixed;left:0;right:0;bottom:0;height:118px;z-index:5;pointer-events:none;
     background:linear-gradient(to top, rgba(7,4,23,.94) 12%, rgba(7,4,23,.55) 55%, transparent 100%)}
   body.light .edge{background:linear-gradient(to top, rgba(245,238,226,.96) 12%, rgba(245,238,226,.6) 55%, transparent 100%)}
   .morecue{position:fixed;left:50%;transform:translateX(-50%) translateY(-4px);
@@ -383,7 +383,7 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
     <div class="stage" style="text-align:center">
       <p class="lead rv">我 们 已 经 认 识</p>
       <div class="countwrap rv"><span class="count" id="days">0</span><span class="unit">天</span></div>
-      <p class="days-note rv" style="text-align:center">从二〇二〇年九月一日，到今天</p>
+      <p class="days-note rv" id="daysNote" style="text-align:center">从二〇二〇年九月一日，到今天</p>
       <div class="orn rv" style="justify-content:center"><i></i><span>❦</span><i></i></div>
       <p class="rv" style="text-align:center;margin-top:22px">时间过得真快。一晃已经六年了。</p>
       <p class="rv" style="text-align:center">可我还是觉得，不太真实。</p>
@@ -410,10 +410,6 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
       <div class="rv"><h2>前排那个女生，<br>后来占掉了我六年。</h2></div>
       <div class="rv"><div class="hair"></div></div>
       <div class="rv"><p>二〇二〇年九月一号，我回到兴文读书，被分到了你们班。</p></div>
-      <div class="photowrap">
-        <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
-        <div class="rv"><p class="cap">初中·那年</p></div>
-      </div>
       <div class="rv"><p>那算我们第一次见面。不过说实话，那时候我们没什么交集——你在同一个组，坐我前排，仅此而已。</p></div>
       <div class="rv"><p>我那时候当然想不到，前排这个女生后来会占掉我六年。</p></div>
     </div>
@@ -439,10 +435,6 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
       <div class="rv"><h2>你吵架的样子，<br>在我眼里跟撒娇没区别。</h2></div>
       <div class="rv"><div class="hair"></div></div>
       <div class="rv"><p>讲题讲久了，架也就吵起来了。以我们俩当时的性格，吵架是不可避免的。</p></div>
-      <div class="photowrap">
-        <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
-        <div class="rv"><p class="cap">初中·那年</p></div>
-      </div>
       <div class="rv"><p>但在我眼里，你吵架跟撒娇没什么区别。</p></div>
       <div class="rv"><p>那段时间你总来找我问题，我也乐此不疲。有些谣言开始传。</p></div>
       <div class="rv"><p>我记不清当时具体什么感受了——因为在我自己看来，我们那时的交流确实挺暧昧的。</p></div>
@@ -469,10 +461,6 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
       <div class="rv"><h2>我一直没想明白，<br>我是怎么骗到你家地址的。</h2></div>
       <div class="rv"><div class="hair"></div></div>
       <div class="rv"><p>之后是我们第一次关系“破裂”。</p></div>
-      <div class="photowrap">
-        <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
-        <div class="rv"><p class="cap">初中·那年</p></div>
-      </div>
       <div class="rv"><p>神奇的是，我竟然在那个暑假去你家玩了。到现在我也没搞清楚，我到底是怎么骗到你家庭住址的。</p></div>
       <div class="rv"><p>初中三年其实已经记不太清了。那时候你就是只学习的，我们的交流完全局限在学习。</p></div>
       <div class="rv"><p>虽然高中感觉也差不多——但我们还是学生嘛，不聊学习聊什么，聊梦想、聊三观吗。</p></div>
@@ -498,10 +486,6 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
       <div class="rv"><h2>那天我在路上，<br>是真的说不出来。</h2></div>
       <div class="rv"><div class="hair"></div></div>
       <div class="rv"><p>高中毕业那天，我记得我们在路上走了半天。</p></div>
-      <div class="photowrap">
-        <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
-        <div class="rv"><p class="cap">初中·那年</p></div>
-      </div>
       <div class="rv"><p>你能在那儿叭叭叭地说个不停，我是真的说不出来。</p></div>
       <div class="rv"><p>其实挺不现实的。那会儿我是有点迟疑的：一是我确实说不出口，二是我觉得你不会想异地。</p></div>
       <div class="rv"><p>那时候我几乎笃定自己考不上中山，甚至觉得混过去也是个不错的选择——毕竟你会很累。</p></div>
@@ -531,10 +515,6 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
       <div class="rv"><h2>我爸很无所谓，<br>我孃孃替我不平。</h2></div>
       <div class="rv"><div class="hair"></div></div>
       <div class="rv"><p>后来到了假期。说实话，这段我不太想回忆——只是重复地闹矛盾。</p></div>
-      <div class="photowrap">
-        <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
-        <div class="rv"><p class="cap">初中·那年</p></div>
-      </div>
       <div class="rv"><p>我到现在也不太理解，我为什么就被完全“pass”了。但我尊重你家人的建议。</p></div>
       <div class="rv"><p>那天是中午，午饭前你跟我说了这件事。我听完就出去吃饭了，在桌上和我爸他们聊到。</p></div>
       <div class="rv"><p>我爸很无所谓，什么都没说。我孃孃似乎有些为我不平，周末带我去了电影院——电影其实不怎么样。</p></div>
@@ -565,10 +545,6 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
       <div class="rv"><h2>第一次自己坐地铁，<br>竟然是去找对象。</h2></div>
       <div class="rv"><div class="hair"></div></div>
       <div class="rv"><p>一直到大一的国庆，我去找你。</p></div>
-      <div class="photowrap">
-        <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
-        <div class="rv"><p class="cap">初中·那年</p></div>
-      </div>
       <div class="rv"><p>这是我第一次自己出远门。第一次自己坐地铁出门，竟然是去找对象——吴享平，过去的你能想到这一步吗。</p></div>
       <div class="rv"><p>到了之后还收到了花。这你又能想到吗。大概是不会的。</p></div>
       <div class="rv"><p>那几天确实玩得很开心。走的时候，你竟然还抱了我一下。</p></div>
@@ -596,10 +572,6 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
       <div class="rv"><h2>有个丰富多彩的人<br>闯进了我的生活。</h2></div>
       <div class="rv"><div class="hair"></div></div>
       <div class="rv"><p>快进到现在。</p></div>
-      <div class="photowrap">
-        <div class="rv"><div class="photo"><div class="ph" data-photo="1">照 片 · 待 放</div></div></div>
-        <div class="rv"><p class="cap">初中·那年</p></div>
-      </div>
       <div class="rv"><p>我对生日其实没什么感觉。我自己过生日的时候，只想好好玩会儿游戏。</p></div>
       <div class="rv"><p>但有个丰富多彩的人闯进了我的生活，我好像就不能再把一些日子当作可有可无了。</p></div>
       <div class="rv"><p>所以我开始想：怎么样才能惊艳到你。</p></div>
@@ -935,12 +907,6 @@ const CONFIG = {
     es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.16, rootMargin: '0px 0px -10% 0px' });
   $$('.rv').forEach(el => io.observe(el));
-
-  /* ---------- 大字转场 ---------- */
-  const mega = $('#mega');
-  new IntersectionObserver(es => {
-    es.forEach(e => { if (e.isIntersecting) mega.classList.add('in'); });
-  }, { threshold: 0.45 }).observe(mega);
 
   /* ---------- 数字滚动 ---------- */
   function countTo(el, to, dur) {
