@@ -238,10 +238,6 @@
   .cake{width:min(84vw,318px);display:block;margin:10px auto 0;overflow:visible;cursor:pointer;
     filter:drop-shadow(0 18px 26px rgba(0,0,0,.45));transition:transform .5s var(--e)}
   .cake:active{transform:scale(.985)}
-  .cake #tierTop,.cake #tierBottom{transition:transform .9s var(--e);
-    transform-box:fill-box;transform-origin:50% 100%}
-  .cake.cut #tierTop{transform:translate(16px,34px) rotate(3.5deg)}
-  .cake.cut #tierBottom{transform:translate(-7px,2px)}
 
   .cake-hint{margin:6px 0 0;text-align:center;font-size:12px;letter-spacing:.22em;color:var(--ink-3);
     animation:breathe 2.6s ease-in-out infinite}
@@ -433,7 +429,7 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
       <div class="stats rv">
         <div class="stat"><b data-num="2265">2265</b><span>天</span><em>我们认识</em></div>
         <div class="stat"><b data-num="6">6</b><span>年</span><em>一路走到现在</em></div>
-        <div class="stat"><b data-num="1">1</b><span>次</span><em>第一次表白</em></div>
+        <div class="stat"><b style="font-size:clamp(19px,5.6vw,25px);letter-spacing:.06em;padding:10px 0 4px">无数次</b><span>次</span><em>表白次数</em></div>
         <div class="stat"><b style="font-size:clamp(19px,5.6vw,25px);letter-spacing:.06em;padding:10px 0 4px">数不清</b><span>次</span><em>吵过的架</em></div>
       </div>
       <p class="rv" style="text-align:center;margin-top:20px;font-size:12.5px;color:var(--ink-3)">前三个是真的，最后一个也没在开玩笑。</p>
@@ -665,53 +661,11 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
     <div class="stage" style="text-align:center">
       <div class="rv"><div class="label" style="justify-content:center"><i></i>最 后 一 页<i></i></div></div>
       <div class="rv"><h2 style="text-align:center;margin-bottom:4px">许个愿吧。</h2></div>
-      <p class="cake-hint rv" id="cakeHint">轻触蜡烛 · 吹灭它</p>
+      <p class="cake-hint rv" id="cakeHint">轻触蛋糕 · 吹灭蜡烛</p>
 
       <div class="cakewrap rv"><div class="cake" id="cake" role="button" tabindex="0" aria-label="吹灭蜡烛">
-        <svg viewBox="0 0 240 220" aria-hidden="true">
-          <defs>
-            <linearGradient id="gCake" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdf1da"/><stop offset="1" stop-color="#e7c492"/></linearGradient>
-            <linearGradient id="gIcing" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffbf2"/><stop offset="1" stop-color="#f1dcb6"/></linearGradient>
-            <radialGradient id="gFlame" cx="50%" cy="68%" r="62%"><stop offset="0" stop-color="#fff6cf"/><stop offset="55%" stop-color="#ffb64d" stop-opacity=".95"/><stop offset="1" stop-color="#f07b2a" stop-opacity="0"/></radialGradient>
-            <radialGradient id="gGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffca7a" stop-opacity=".5"/><stop offset="1" stop-color="#ffca7a" stop-opacity="0"/></radialGradient>
-            <linearGradient id="gPlate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dcc59c"/><stop offset="1" stop-color="#a98e63"/></linearGradient>
-          </defs>
-
-          <ellipse cx="120" cy="118" rx="98" ry="98" fill="url(#gGlow)" opacity=".5"/>
-          <ellipse cx="120" cy="198" rx="88" ry="10" fill="#000" opacity=".3"/>
-          <ellipse cx="120" cy="191" rx="84" ry="9" fill="url(#gPlate)" opacity=".92"/>
-          <ellipse cx="120" cy="188" rx="84" ry="9" fill="none" stroke="rgba(255,238,205,.5)" stroke-width="1"/>
-
-          <g id="tierBottom">
-            <path d="M46 189 L46 146 Q46 138 54 138 L186 138 Q194 138 194 146 L194 189 Z" fill="url(#gCake)" stroke="#c9a06a" stroke-width="1.2"/>
-            <path d="M46 146 q10 15 19 0 q10 15 19 0 q10 15 19 0 q10 15 19 0 q10 15 19 0 q10 15 19 0 q10 15 19 0 q10 15 19 0 L194 139 Q194 131 186 131 L54 131 Q46 131 46 139 Z" fill="url(#gIcing)" stroke="#c9a06a" stroke-width="1"/>
-            <rect x="66" y="164" width="7" height="3" rx="1.5" fill="#e88a8a" transform="rotate(-18 69 165)"/>
-            <rect x="96" y="176" width="7" height="3" rx="1.5" fill="#9ad0e8" transform="rotate(12 99 177)"/>
-            <rect x="132" y="168" width="7" height="3" rx="1.5" fill="#c9a0e8" transform="rotate(-8 135 169)"/>
-            <rect x="162" y="178" width="7" height="3" rx="1.5" fill="#f2c14e" transform="rotate(16 165 179)"/>
-          </g>
-
-          <g id="tierTop">
-            <path d="M72 138 L72 104 Q72 97 79 97 L161 97 Q168 97 168 104 L168 138 Z" fill="url(#gCake)" stroke="#c9a06a" stroke-width="1.2"/>
-            <path d="M72 104 q9 14 17 0 q9 14 17 0 q9 14 17 0 q9 14 17 0 q9 14 17 0 L168 97 Q168 90 161 90 L79 90 Q72 90 72 97 Z" fill="url(#gIcing)" stroke="#c9a06a" stroke-width="1"/>
-            <circle cx="88" cy="114" r="4.4" fill="#c9483d"/><circle cx="86.4" cy="112.4" r="1.3" fill="#f4b1a8" opacity=".85"/>
-            <circle cx="152" cy="114" r="4.4" fill="#c9483d"/><circle cx="150.4" cy="112.4" r="1.3" fill="#f4b1a8" opacity=".85"/>
-            <rect x="106" y="120" width="7" height="3" rx="1.5" fill="#9ad0e8" transform="rotate(-14 109 121)"/>
-            <rect x="128" y="126" width="7" height="3" rx="1.5" fill="#f2c14e" transform="rotate(10 131 127)"/>
-          </g>
-
-          <rect x="116" y="58" width="8" height="36" rx="3" fill="#f8e6bf" stroke="#c9a06a" stroke-width="1"/>
-          <path d="M117 70 h6 M117 78 h6" stroke="#e3c68f" stroke-width="1"/>
-          <path d="M120 58 v-6" stroke="#7a5a33" stroke-width="1.6" stroke-linecap="round"/>
-
-          <g class="smoke"><path d="M120 28 c-7 -8 7 -13 0 -21"/><path d="M116 30 c-8 -9 5 -14 -1 -22"/><path d="M124 30 c8 -9 -5 -14 1 -22"/></g>
-          <g class="flame">
-            <ellipse cx="120" cy="46" rx="11" ry="16" fill="url(#gFlame)" opacity=".9"/>
-            <path d="M120 30 c-7 -10 1 -15 0 -20 c8 7 11 15 0 20 z" fill="#ffb347"/>
-            <path d="M120 32 c-3.5 -5 0 -9 0 -12 c3.5 4 6 8 0 12 z" fill="#fff2c0"/>
-          </g>
-        </svg>
-      </div></div>
+        <canvas id="cakeCanvas"></canvas>
+      </div></div></div>
 
       <div class="wishbox">
         <input id="wishInput" type="text" maxlength="26" placeholder="写一句愿望，让它飞上去" aria-label="写下愿望">
@@ -720,7 +674,6 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
 
       <div class="cake-actions">
         <button class="cbtn" id="btnRelight">重 新 点 燃</button>
-        <button class="cbtn" id="btnCut">切 一 刀</button>
       </div>
 
       <div class="final">
@@ -1347,6 +1300,215 @@ const CONFIG = {
   }
   $('#again').addEventListener('click', fireworks);
 
+
+  /* ---------- 3D 自转蛋糕 ---------- */
+  (function () {
+    const sec = document.getElementById('candleSec');
+    const cv = document.getElementById('cakeCanvas');
+    if (!sec || !cv) return;
+    let g = null;
+    try { g = cv.getContext('2d'); } catch (e) { g = null; }
+    if (!g) return;
+
+    const W = 320, H = 300, dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = W * dpr; cv.height = H * dpr;
+    cv.style.cssText = 'display:block;width:100%;max-width:320px;height:auto;margin:0 auto';
+    g.scale(dpr, dpr);
+
+    const cx = 160, k = 0.28, plateY = 252;
+    const R1 = 82, H1 = 56, R2 = 56, H2 = 48;
+    const y1 = plateY - H1, y2 = y1 - H2;
+    const candleTop = y2 - 34;
+
+    const SUGAR = ['#e88a8a', '#9ad0e8', '#c9a0e8', '#f2c14e', '#a8d8a0'];
+    const rnd = (a, b) => a + Math.random() * (b - a);
+
+    const spr = [], band = [], cher = [];
+    for (let i = 0; i < 14; i++) spr.push({ a: rnd(0, 6.283), y: rnd(y1 + 10, plateY - 9), R: R1, c: SUGAR[i % 5] });
+    for (let i = 0; i < 9; i++) spr.push({ a: rnd(0, 6.283), y: rnd(y2 + 10, y1 - 9), R: R2, c: SUGAR[(i + 2) % 5] });
+    for (let i = 0; i < 20; i++) band.push({ a: i / 20 * 6.283, y: y1, R: R1, r: 7.2 });
+    for (let i = 0; i < 15; i++) band.push({ a: i / 15 * 6.283, y: y2, R: R2, r: 6 });
+    for (let i = 0; i < 6; i++) cher.push({ a: i / 6 * 6.283, R: R2 * 0.58 });
+
+    let rot = 0, lastT = 0, visible = true, blownAt = 0;
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) { visible = e.isIntersecting; });
+      }, { threshold: 0.05 }).observe(cv);
+    }
+
+    function proj(a, R, y) {
+      return [cx + R * Math.sin(a), y + R * k * Math.cos(a), Math.cos(a)];
+    }
+
+    function cylinder(cyTop, cyBot, R) {
+      const grd = g.createLinearGradient(cx - R, 0, cx + R, 0);
+      grd.addColorStop(0, '#e3bd88');
+      grd.addColorStop(0.38, '#fdf1da');
+      grd.addColorStop(0.62, '#f8e6c4');
+      grd.addColorStop(1, '#d9b179');
+      g.beginPath();
+      g.moveTo(cx - R, cyTop);
+      g.lineTo(cx - R, cyBot);
+      g.ellipse(cx, cyBot, R, R * k, 0, Math.PI, 0, true);
+      g.lineTo(cx + R, cyTop);
+      g.closePath();
+      g.fillStyle = grd; g.fill();
+      g.strokeStyle = 'rgba(186,146,94,.85)'; g.lineWidth = 1.1; g.stroke();
+    }
+
+    function topFace(cy, R) {
+      const grd = g.createLinearGradient(cx, cy - R * k, cx, cy + R * k);
+      grd.addColorStop(0, '#fffdf8');
+      grd.addColorStop(1, '#f1dcb6');
+      g.beginPath();
+      g.ellipse(cx, cy, R, R * k, 0, 0, 6.283);
+      g.fillStyle = grd; g.fill();
+      g.strokeStyle = 'rgba(186,146,94,.8)'; g.lineWidth = 1; g.stroke();
+    }
+
+    function drawBand(y, R, rr) {
+      const items = band.filter(function (b) { return Math.abs(b.y - y) < 1; })
+        .map(function (b) { return { p: proj(b.a + rot, R, y) }; })
+        .filter(function (o) { return o.p[2] > 0.03; })
+        .sort(function (A, B) { return A.p[2] - B.p[2]; });
+      for (let i = 0; i < items.length; i++) {
+        const p = items[i].p, sc = 0.72 + 0.34 * p[2];
+        g.beginPath(); g.arc(p[0], p[1], rr * sc, 0, 6.283);
+        g.fillStyle = '#fffbf2'; g.fill();
+        g.strokeStyle = 'rgba(186,146,94,.45)'; g.lineWidth = 0.8; g.stroke();
+      }
+    }
+
+    function drawSprinkles(R) {
+      const items = spr.filter(function (s) { return s.R === R; })
+        .map(function (s) { return { s: s, p: proj(s.a + rot, s.R, s.y) }; })
+        .filter(function (o) { return o.p[2] > 0.03; })
+        .sort(function (A, B) { return A.p[2] - B.p[2]; });
+      for (let i = 0; i < items.length; i++) {
+        const o = items[i], p = o.p, sc = 0.7 + 0.4 * p[2];
+        g.save();
+        g.translate(p[0], p[1]);
+        g.rotate(p[2] * 0.7);
+        g.fillStyle = o.s.c;
+        g.beginPath();
+        g.ellipse(0, 0, 3.3 * sc, 1.5 * sc, 0, 0, 6.283);
+        g.fill();
+        g.restore();
+      }
+    }
+
+    function drawFlame(t) {
+      const wob = 1 + Math.sin(t * 7.4) * 0.07;
+      const fx = cx + Math.sin(t * 4.1) * 1.5;
+      const fy = candleTop - 12;
+
+      const halo = g.createRadialGradient(fx, fy + 4, 1, fx, fy + 4, 30);
+      halo.addColorStop(0, 'rgba(255,214,130,.45)');
+      halo.addColorStop(1, 'rgba(255,180,80,0)');
+      g.fillStyle = halo;
+      g.beginPath(); g.arc(fx, fy + 4, 30, 0, 6.283); g.fill();
+
+      g.beginPath();
+      g.moveTo(fx, fy - 20 * wob);
+      g.bezierCurveTo(fx + 10, fy - 8, fx + 7, fy + 3, fx, fy + 8);
+      g.bezierCurveTo(fx - 7, fy + 3, fx - 10, fy - 8, fx, fy - 20 * wob);
+      g.fillStyle = '#ffb347'; g.fill();
+
+      g.beginPath();
+      g.moveTo(fx, fy - 10 * wob);
+      g.bezierCurveTo(fx + 4.5, fy - 4, fx + 3.5, fy + 2, fx, fy + 5);
+      g.bezierCurveTo(fx - 3.5, fy + 2, fx - 4.5, fy - 4, fx, fy - 10 * wob);
+      g.fillStyle = '#fff3c8'; g.fill();
+    }
+
+    function draw(now) {
+      const t = now / 1000;
+      const isBlown = sec.classList.contains('blown');
+      if (isBlown && !blownAt) blownAt = t;
+      if (!isBlown && blownAt) blownAt = 0;
+      rot = t * 0.34;
+
+      g.clearRect(0, 0, W, H);
+
+      const glow = g.createRadialGradient(cx, 180, 20, cx, 180, 150);
+      glow.addColorStop(0, 'rgba(255,192,112,.15)');
+      glow.addColorStop(1, 'rgba(255,192,112,0)');
+      g.fillStyle = glow; g.fillRect(0, 0, W, H);
+
+      g.beginPath(); g.ellipse(cx, plateY + 14, R1 + 16, (R1 + 16) * k, 0, 0, 6.283);
+      g.fillStyle = 'rgba(0,0,0,.30)'; g.fill();
+
+      const pg = g.createLinearGradient(cx, plateY - 6, cx, plateY + 10);
+      pg.addColorStop(0, '#e6d2ad'); pg.addColorStop(1, '#a98e63');
+      g.beginPath(); g.ellipse(cx, plateY, R1 + 13, (R1 + 13) * k, 0, 0, 6.283);
+      g.fillStyle = pg; g.fill();
+
+      cylinder(y1, plateY, R1);
+      drawBand(y1, R1, 7.2);
+      drawSprinkles(R1);
+      topFace(y1, R1);
+
+      cylinder(y2, y1, R2);
+      drawBand(y2, R2, 6);
+      drawSprinkles(R2);
+      topFace(y2, R2);
+
+      for (let i = 0; i < cher.length; i++) {
+        const p = proj(cher[i].a + rot, cher[i].R, y2);
+        if (p[2] <= 0.05) continue;
+        g.beginPath(); g.arc(p[0], p[1], 4.6, 0, 6.283);
+        g.fillStyle = '#c9483d'; g.fill();
+        g.beginPath(); g.arc(p[0] - 1.4, p[1] - 1.5, 1.3, 0, 6.283);
+        g.fillStyle = 'rgba(246,186,178,.9)'; g.fill();
+      }
+
+      g.beginPath();
+      if (g.roundRect) g.roundRect(cx - 4, candleTop, 8, y2 - candleTop, 3);
+      else g.rect(cx - 4, candleTop, 8, y2 - candleTop);
+      g.fillStyle = '#f8e6bf'; g.fill();
+      g.strokeStyle = 'rgba(186,146,94,.9)'; g.lineWidth = 1; g.stroke();
+
+      g.beginPath(); g.moveTo(cx, candleTop); g.lineTo(cx, candleTop - 7);
+      g.strokeStyle = '#7a5a33'; g.lineWidth = 1.6; g.lineCap = 'round'; g.stroke();
+
+      if (!blownAt) {
+        drawFlame(t);
+      } else {
+        const age = t - blownAt;
+        for (let i = 0; i < 3; i++) {
+          const a2 = age - i * 0.2;
+          if (a2 < 0 || a2 > 2.2) continue;
+          const yy = candleTop - 8 - a2 * 44;
+          const al = Math.max(0, 1 - a2 / 2.2) * 0.45;
+          g.beginPath();
+          g.moveTo(cx + (i - 1) * 3, yy);
+          g.bezierCurveTo(cx - 8 + i * 6, yy - 12, cx + 8 - i * 5, yy - 22, cx + Math.sin(a2 * 3 + i) * 5, yy - 34);
+          g.strokeStyle = 'rgba(208,198,182,' + al.toFixed(2) + ')';
+          g.lineWidth = 1.4; g.stroke();
+        }
+      }
+
+      for (let i = 0; i < 7; i++) {
+        const px = cx + Math.sin(t * 0.55 + i * 0.9) * (R1 + 24);
+        const py = 210 - ((t * 16 + i * 44) % 170);
+        const al = 0.18 + 0.34 * Math.abs(Math.sin(t * 1.7 + i));
+        g.fillStyle = 'rgba(255,238,196,' + al.toFixed(2) + ')';
+        g.beginPath(); g.arc(px, py, 1.5, 0, 6.283); g.fill();
+      }
+    }
+
+    function loop(now) {
+      requestAnimationFrame(loop);
+      if (!visible) return;
+      if (now - lastT < 33) return;
+      lastT = now;
+      draw(now);
+    }
+    requestAnimationFrame(loop);
+  })();
+
   /* ---------- 蛋糕互动 ---------- */
   const cakeSec = $('#candleSec'), cake = $('#cake');
   let blown = false;
@@ -1422,9 +1584,6 @@ const CONFIG = {
   cake.addEventListener('click', blow);
   cake.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); blow(); } });
   $('#btnRelight').addEventListener('click', relight);
-  $('#btnCut').addEventListener('click', function () {
-    if (!cakeSec.classList.contains('cut')) { cakeSec.classList.add('cut'); confetti(); }
-  });
   $('#wishSend').addEventListener('click', sendWish);
   const wishInput = $('#wishInput');
   if (wishInput) wishInput.addEventListener('keydown', function (e) {
