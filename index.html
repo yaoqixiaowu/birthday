@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#08090d" id="metaTheme">
+<meta name="theme-color" content="#070417" id="metaTheme">
 <title>生日快乐</title>
 <style>
   :root{
     --ink:#efe6d6; --ink-2:#a99d8b; --ink-3:#6f665a;
     --p:#ddd2c1; --h:#f7f0e2;
     --gold:#d9b779; --gold-2:#f2dcae;
-    --bg:#08090d;
+    --bg:#070417;
     --panel:rgba(255,255,255,.045);
     --dock:rgba(18,20,26,.6);
     --line:rgba(217,183,121,.22);
@@ -73,6 +73,10 @@
     background:linear-gradient(90deg,var(--gold),var(--gold-2));box-shadow:0 0 10px rgba(217,183,121,.55)}
 
   /* ================= 极光 / 开场 / 墨迹 ================= */
+  #galaxy{position:fixed;inset:0;z-index:1;pointer-events:none;
+    opacity:1;transition:opacity .9s ease}
+  body.light #galaxy{opacity:.22}
+
   .nebula{position:fixed;inset:-12%;z-index:0;pointer-events:none;opacity:.13;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='560'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008 0.011' numOctaves='4' seed='7'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='560' height='560' filter='url(%23m)'/%3E%3C/svg%3E");
     background-size:560px 560px;mix-blend-mode:soft-light;
@@ -130,7 +134,9 @@
   /* ================= 开场 ================= */
   .chips{font-size:10.5px;letter-spacing:.46em;color:var(--ink-3);opacity:0;animation:fadeIn 1.6s var(--e) .1s forwards}
   .hero h1{margin:20px 0 0;font-weight:400;text-align:center;
-    font-size:clamp(54px,17.5vw,96px);line-height:1.18;letter-spacing:.1em;text-indent:.1em;color:var(--h)}
+    font-size:clamp(54px,17.5vw,96px);line-height:1.18;letter-spacing:.1em;text-indent:.1em;color:var(--h);
+    text-shadow:0 0 44px rgba(232,202,144,.32),0 0 12px rgba(255,240,210,.16)}
+  body.light .hero h1{text-shadow:none}
   .hero h1 span{display:inline-block;opacity:0;animation:charIn 1.5s var(--e) both;
     animation-delay:calc(.22s + var(--i) * .14s)}
   @keyframes charIn{
@@ -192,6 +198,13 @@
   .cap{font-size:10.5px;letter-spacing:.16em;color:var(--ink-3);text-align:center;margin:10px 0 0}
 
   /* ================= 蛋糕 ================= */
+  .cakewrap{position:relative;isolation:isolate}
+  .cakewrap::before{content:"";position:absolute;left:50%;top:46%;width:118%;height:118%;
+    transform:translate(-50%,-50%);border-radius:50%;z-index:-1;pointer-events:none;
+    background:radial-gradient(circle, rgba(178,140,255,.30) 0%, rgba(120,90,220,.12) 42%, transparent 66%);
+    filter:blur(18px);animation:cakeGlow 4.2s ease-in-out infinite}
+  @keyframes cakeGlow{0%,100%{opacity:.75;transform:translate(-50%,-50%) scale(.96)}
+                      50%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}}
   .cake{width:min(80vw,300px);display:block;margin:8px auto 0;overflow:visible;cursor:pointer}
   .cake svg{width:100%;height:auto;overflow:visible}
   .ln{fill:none;stroke:var(--gold);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -290,6 +303,7 @@
 setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){document.body.className=document.body.className.replace('pre-intro','').trim();document.body.className+=' intro-done'}},4600)</script>
 
 <div class="nebula"></div>
+<canvas id="galaxy"></canvas>
 <canvas id="intro"></canvas>
 <div id="ink"></div>
 <div class="bg"><div class="glow" id="g1"></div><div class="glow" id="g2"></div><div class="vignette"></div></div>
@@ -407,7 +421,7 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
     <div class="stage" style="text-align:center">
       <div class="rv"><div class="label" style="justify-content:center"><i></i>许 个 愿<i></i></div></div>
       <div class="rv"><h2 style="text-align:center;margin-bottom:6px">我把蜡烛点上了。</h2></div>
-      <div class="cake rv" id="cake" role="button" tabindex="0" aria-label="吹灭蜡烛">
+      <div class="cakewrap rv"><div class="cake" id="cake" role="button" tabindex="0" aria-label="吹灭蜡烛">
         <svg viewBox="0 0 200 170" aria-hidden="true">
           <path class="ln-soft" d="M34 146 L166 146"/><path class="ln-soft" d="M52 140 L148 140"/>
           <path class="ln" d="M56 140 L56 108 Q56 100 64 100 L136 100 Q144 100 144 108 L144 140"/>
@@ -419,7 +433,7 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
           <g class="smoke"><path d="M100 34 c-6 -8 6 -12 0 -20"/><path d="M97 36 c-7 -9 4 -13 -1 -21"/><path d="M103 36 c7 -9 -4 -13 1 -21"/></g>
           <g class="flame"><path class="f1" d="M100 34 c-7 -9 0 -16 0 -23 c7 7 12 15 0 23 z"/><path class="f2" d="M100 32 c-3 -4 0 -7 0 -10 c3 3 5 6 0 10 z"/></g>
         </svg>
-      </div>
+      </div></div>
       <p class="blow-hint rv">轻 触 蜡 烛 · 吹 灭 它</p>
       <div class="final">
         <p style="text-align:center;font-size:19px;letter-spacing:.1em;color:var(--h);margin:0 0 14px">
@@ -522,6 +536,169 @@ const CONFIG = {
     starBox.appendChild(s);
   }
 
+
+  /* ---------- 星河 · 光斑 · 流星 ---------- */
+  (function () {
+    const cv = document.getElementById('galaxy');
+    if (!cv) return;
+    let g = null;
+    try { g = cv.getContext('2d'); } catch (e) { g = null; }
+    if (!g) return;
+
+    let W = innerWidth, H = innerHeight, dpr = 1;
+
+    function sprite(rgb, rim) {
+      const S = 128, c = document.createElement('canvas');
+      c.width = c.height = S;
+      const x = c.getContext('2d');
+      const gr = x.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
+      const t = rgb.join(',');
+      gr.addColorStop(0, 'rgba(' + t + ',0.95)');
+      gr.addColorStop(0.16, 'rgba(' + t + ',0.55)');
+      gr.addColorStop(0.5, 'rgba(' + t + ',0.14)');
+      gr.addColorStop(0.78, 'rgba(' + t + ',' + (rim ? 0.30 : 0.10) + ')');
+      gr.addColorStop(1, 'rgba(' + t + ',0)');
+      x.fillStyle = gr;
+      x.fillRect(0, 0, S, S);
+      return c;
+    }
+
+    function starSprite() {
+      const S = 128, c = document.createElement('canvas');
+      c.width = c.height = S;
+      const x = c.getContext('2d');
+      x.translate(S / 2, S / 2);
+      x.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < 2; i++) {
+        x.save();
+        x.rotate(i * Math.PI / 2);
+        const lg = x.createLinearGradient(-S / 2, 0, S / 2, 0);
+        lg.addColorStop(0, 'rgba(255,255,255,0)');
+        lg.addColorStop(0.5, 'rgba(255,255,255,0.9)');
+        lg.addColorStop(1, 'rgba(255,255,255,0)');
+        x.fillStyle = lg;
+        x.beginPath();
+        x.moveTo(-S / 2, 0);
+        x.lineTo(0, -1.6);
+        x.lineTo(S / 2, 0);
+        x.lineTo(0, 1.6);
+        x.closePath();
+        x.fill();
+        x.restore();
+      }
+      const gr = x.createRadialGradient(0, 0, 0, 0, 0, 14);
+      gr.addColorStop(0, 'rgba(255,255,255,1)');
+      gr.addColorStop(1, 'rgba(255,255,255,0)');
+      x.fillStyle = gr;
+      x.beginPath(); x.arc(0, 0, 14, 0, 6.283); x.fill();
+      return c;
+    }
+
+    const COLS = [[255, 214, 150], [236, 170, 255], [168, 190, 255], [146, 240, 255], [255, 255, 255], [255, 168, 200]];
+    const SPR = COLS.map(function (c, i) { return sprite(c, i % 2 === 0); });
+    const STAR = starSprite();
+
+    let bokeh = [], glints = [], shoot = [], raf = 0, last = 0, nextShoot = 0;
+
+    function build() {
+      bokeh = []; glints = [];
+      const n = Math.round(Math.min(54, Math.max(24, W / 8)));
+      for (let i = 0; i < n; i++) {
+        const k = (Math.random() * SPR.length) | 0;
+        bokeh.push({
+          s: SPR[k],
+          x: Math.random() * W, y: Math.random() * H,
+          r: 7 + Math.random() * 40,
+          a: 0.10 + Math.random() * 0.30,
+          vy: -(0.05 + Math.random() * 0.20),
+          vx: (Math.random() - 0.5) * 0.10,
+          ph: Math.random() * 6.283, sp: 0.4 + Math.random() * 0.9
+        });
+      }
+      const m = Math.round(Math.min(36, Math.max(14, W / 15)));
+      for (let i = 0; i < m; i++) {
+        glints.push({
+          x: Math.random() * W, y: Math.random() * H,
+          r: 5 + Math.random() * 12,
+          ph: Math.random() * 6.283, sp: 0.5 + Math.random() * 1.3
+        });
+      }
+    }
+
+    function resize() {
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = innerWidth; H = innerHeight;
+      cv.width = Math.floor(W * dpr); cv.height = Math.floor(H * dpr);
+      cv.style.width = W + 'px'; cv.style.height = H + 'px';
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      build();
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function frame(now) {
+      raf = requestAnimationFrame(frame);
+      if (now - last < 33) return;
+      last = now;
+      if (document.hidden) return;
+
+      g.clearRect(0, 0, W, H);
+      g.globalCompositeOperation = 'lighter';
+
+      for (let i = 0; i < bokeh.length; i++) {
+        const b = bokeh[i];
+        b.y += b.vy; b.x += b.vx;
+        if (b.y < -b.r * 2) { b.y = H + b.r * 2; b.x = Math.random() * W; }
+        if (b.x < -b.r * 2) b.x = W + b.r * 2;
+        if (b.x > W + b.r * 2) b.x = -b.r * 2;
+        const tw = 0.76 + 0.24 * Math.sin(now / 950 * b.sp + b.ph);
+        g.globalAlpha = Math.min(0.55, b.a * tw);
+        g.drawImage(b.s, b.x - b.r, b.y - b.r, b.r * 2, b.r * 2);
+      }
+
+      for (let i = 0; i < glints.length; i++) {
+        const s = glints[i];
+        const k = Math.sin(now / 640 * s.sp + s.ph);
+        if (k <= 0.55) continue;
+        const a = Math.pow((k - 0.55) / 0.45, 2);
+        g.globalAlpha = a * 0.85;
+        const r = s.r * (0.65 + 0.55 * a);
+        g.drawImage(STAR, s.x - r, s.y - r, r * 2, r * 2);
+      }
+
+      if (now > nextShoot) {
+        nextShoot = now + 3400 + Math.random() * 5600;
+        const fromLeft = Math.random() < 0.65;
+        shoot.push({
+          x: fromLeft ? W * (0.02 + Math.random() * 0.30) : W * (0.68 + Math.random() * 0.28),
+          y: -30 - Math.random() * 80,
+          vx: fromLeft ? (2.4 + Math.random() * 2.0) : -(1.5 + Math.random() * 1.3),
+          vy: 3.2 + Math.random() * 2.2,
+          life: 1
+        });
+      }
+      for (let i = shoot.length - 1; i >= 0; i--) {
+        const st = shoot[i];
+        st.x += st.vx; st.y += st.vy; st.life -= 0.011;
+        if (st.life <= 0 || st.y > H + 80) { shoot.splice(i, 1); continue; }
+        const tx = st.x - st.vx * 24, ty = st.y - st.vy * 24;
+        const lg = g.createLinearGradient(st.x, st.y, tx, ty);
+        lg.addColorStop(0, 'rgba(255,255,255,' + (0.9 * st.life).toFixed(3) + ')');
+        lg.addColorStop(0.4, 'rgba(200,210,255,' + (0.32 * st.life).toFixed(3) + ')');
+        lg.addColorStop(1, 'rgba(200,210,255,0)');
+        g.globalAlpha = 1;
+        g.strokeStyle = lg; g.lineWidth = 2; g.lineCap = 'round';
+        g.beginPath(); g.moveTo(st.x, st.y); g.lineTo(tx, ty); g.stroke();
+        g.fillStyle = 'rgba(255,255,255,' + (0.9 * st.life).toFixed(3) + ')';
+        g.beginPath(); g.arc(st.x, st.y, 1.7, 0, 6.283); g.fill();
+      }
+
+      g.globalAlpha = 1;
+      g.globalCompositeOperation = 'source-over';
+    }
+    raf = requestAnimationFrame(frame);
+  })();
+
   /* ---------- 逐条出现 ---------- */
   $$('.sec').forEach(sec => {
     sec.querySelectorAll('.rv').forEach((el, i) => el.style.setProperty('--d', (i * 0.1).toFixed(2) + 's'));
@@ -567,9 +744,9 @@ const CONFIG = {
   }, { threshold: 0.4 }).observe(statsEl);
 
   /* ---------- 主题 ---------- */
-  const PAL_DARK = [['#2a1430','#3a1a14'],['#1c2340','#3a1a2a'],['#16233a','#2a1a34'],['#241a3a','#3d2118'],
-                    ['#2c1624','#3a2416'],['#1e2436','#3a1a20'],['#2a1a2e','#40201a'],['#120e16','#241012'],
-                    ['#3a2010','#4a1c14'],['#141020','#2a1214']];
+  const PAL_DARK = [['#3d1e78','#5c1f56'],['#2b2a80','#4b1a60'],['#243270','#401f5e'],['#48217a','#6a2148'],
+                    ['#58204f','#4d1c66'],['#27366f','#3f1f5a'],['#45215f','#5c204a'],['#1a1032','#2b1030'],
+                    ['#5e2a1a','#45163e'],['#251448','#3b1238']];
   const PAL_LIGHT = [['#f7e0c8','#efd7dd'],['#e2e9f5','#f7e2d2'],['#e6eef2','#f2e2ea'],['#efe0ea','#f6e4d4'],
                      ['#f3dfe0','#efe6d2'],['#e4e9f2','#f4e0dc'],['#eadff0','#f6e2d6'],['#efe8dc','#f2ded6'],
                      ['#f7e2c6','#f3d8cc'],['#eee4ec','#f6e0d8']];
@@ -598,7 +775,7 @@ const CONFIG = {
   $('#btnTheme').addEventListener('click', () => {
     light = !light;
     body.classList.toggle('light', light);
-    $('#metaTheme').setAttribute('content', light ? '#f5eee2' : '#08090d');
+    $('#metaTheme').setAttribute('content', light ? '#f5eee2' : '#070417');
     $('#btnTheme').classList.toggle('on', light);
     applyPalette(curSec);
     Aurora.setVig(light ? 0.88 : 0.38);
