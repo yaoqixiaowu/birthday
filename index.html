@@ -128,6 +128,18 @@
   .sec{scrollbar-width:none}
   .hero{justify-content:center}
 
+  .sec{overscroll-behavior-y:contain}
+  .edge{position:fixed;left:0;right:0;bottom:0;height:118px;z-index:3;pointer-events:none;
+    background:linear-gradient(to top, rgba(7,4,23,.94) 12%, rgba(7,4,23,.55) 55%, transparent 100%)}
+  body.light .edge{background:linear-gradient(to top, rgba(245,238,226,.96) 12%, rgba(245,238,226,.6) 55%, transparent 100%)}
+  .morecue{position:fixed;left:50%;transform:translateX(-50%) translateY(-4px);
+    bottom:calc(env(safe-area-inset-bottom) + 74px);z-index:39;pointer-events:none;
+    font-size:13px;letter-spacing:.2em;color:var(--ink-3);
+    opacity:0;transition:opacity .45s ease,transform .45s ease;
+    animation:cuemove 2.4s ease-in-out infinite}
+  .morecue.on{opacity:.85;transform:translateX(-50%) translateY(0)}
+  @keyframes cuemove{0%,100%{margin-bottom:0}50%{margin-bottom:6px}}
+
   .rv{--d:0s;opacity:0;transform:translateY(32px);filter:blur(9px);
     transition:opacity 1.15s var(--e) var(--d),transform 1.15s var(--e) var(--d),filter 1.15s var(--e) var(--d)}
   .rv.in{opacity:1;transform:none;filter:blur(0)}
@@ -522,6 +534,7 @@ setTimeout(function(){if(document.body.className.indexOf('pre-intro')>-1){docume
   </div>
 </div>
 
+<div class="edge"></div>
 <div class="nav" id="nav"></div>
 
 <div class="dock">
@@ -879,7 +892,24 @@ const CONFIG = {
     if (chapEl) chapEl.textContent = secs[i].dataset.title || '';
     if (pageEl) pageEl.textContent = PAD(i + 1) + ' / ' + PAD(secs.length);
     if (secs[i].id === 'endSec') fireworks();
+    updateMore();
   }
+
+  const moreCue = document.createElement('div');
+  moreCue.className = 'morecue';
+  moreCue.textContent = '↓';
+  document.body.appendChild(moreCue);
+  function updateMore() {
+    const pg = secs[active];
+    if (!pg) return;
+    const left = pg.scrollHeight - pg.scrollTop - pg.clientHeight;
+    moreCue.classList.toggle('on', left > 24);
+  }
+  secs.forEach(function (pg) {
+    pg.addEventListener('scroll', function () {
+      if (secs[active] === pg) updateMore();
+    }, { passive: true });
+  });
 
   let ticking = false;
   function frame() {
@@ -900,13 +930,13 @@ const CONFIG = {
   book.addEventListener('scroll', function () {
     if (!ticking) { ticking = true; requestAnimationFrame(frame); }
   }, { passive: true });
-  window.addEventListener('resize', function () { ticking = true; requestAnimationFrame(frame); });
+  window.addEventListener('resize', function () { ticking = true; requestAnimationFrame(frame); updateMore(); });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'ArrowRight') goTo(active + 1);
     if (e.key === 'ArrowLeft') goTo(active - 1);
     if (e.key === 'Escape') closeToc();
   });
-  requestAnimationFrame(function () { setActive(0); frame(); });
+  requestAnimationFrame(function () { setActive(0); frame(); updateMore(); });
 
   /* ---------- 指头暖光 ---------- */
   const gf = $('#glowfollow');
